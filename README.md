@@ -1,4 +1,13 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Arts Commerce
+
+A modern e-commerce web application built with Next.js and DummyJSON API.
+
+## Features
+
+- Product listing with images, prices, and ratings
+- Detailed product pages with discounts and descriptions
+- Shopping cart with persistent storage
+- Responsive design for all device sizes
 
 ## Getting Started
 
@@ -16,7 +25,27 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technical Details
+
+### Architecture and Design Decisions
+
+This project uses:
+- Next.js App Router for routing and server components
+- Zustand with persistence for cart state management
+- Tailwind CSS for styling
+- Fetch API for data retrieval from DummyJSON endpoints
+
+### Trade-offs and Considerations
+
+- Server components for initial product fetching to improve SEO and performance
+- Client components for interactive elements like cart functionality
+- Persistent cart state using Zustand's persist middleware to maintain user's selections
+
+### Known Limitations
+
+- No authentication or checkout process
+- Limited product filtering or search capabilities
+- Mock e-commerce - no actual payment processing
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
