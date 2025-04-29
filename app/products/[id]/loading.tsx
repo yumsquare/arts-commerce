@@ -14,6 +14,15 @@ export default function ProductLoading() {
       <div className="flex flex-col md:flex-row gap-12">
         {/* Product image section placeholder */}
         <div className="md:w-1/2 relative overflow-hidden rounded-xl bg-gray-100 border border-gray-100">
+          {/* Top section with rating placeholder */}
+          <div className="absolute top-0 left-0 right-0 p-2 flex justify-between items-center z-10">
+            {/* Tag placeholder */}
+            <div className="w-16 h-5 bg-gray-200 rounded animate-pulse"></div>
+            
+            {/* Rating placeholder */}
+            <div className="w-14 h-5 bg-gray-200 rounded-full animate-pulse"></div>
+          </div>
+          
           {/* Main image placeholder */}
           <div className="aspect-square bg-gray-200 animate-pulse"></div>
           
@@ -30,21 +39,8 @@ export default function ProductLoading() {
           {/* Title placeholder */}
           <div className="h-10 bg-gray-200 rounded mb-3 animate-pulse"></div>
           
-          {/* Rating and metadata placeholders */}
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-24 h-6 bg-gray-200 rounded animate-pulse"></div>
-            <div className="w-2 h-6 bg-gray-200 rounded animate-pulse"></div>
-            <div className="w-40 h-6 bg-gray-200 rounded animate-pulse"></div>
-            <div className="w-2 h-6 bg-gray-200 rounded animate-pulse"></div>
-            <div className="w-40 h-6 bg-gray-200 rounded animate-pulse"></div>
-          </div>
-          
           {/* Price placeholder */}
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-24 h-8 bg-gray-200 rounded animate-pulse"></div>
-            <div className="w-20 h-6 bg-gray-200 rounded animate-pulse"></div>
-            <div className="w-16 h-6 bg-gray-200 rounded-full animate-pulse"></div>
-          </div>
+          <div className="w-24 h-8 bg-gray-200 rounded mb-4 animate-pulse"></div>
           
           {/* Description placeholder - multiple lines */}
           <div className="space-y-2 mb-6">

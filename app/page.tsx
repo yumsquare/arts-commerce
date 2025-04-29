@@ -1,5 +1,5 @@
-import ProductCard from "./components/ProductCard";
 import { Product } from "./types";
+import ProductList from "./components/ProductList";
 
 async function getProducts(): Promise<Product[]> {
   const res = await fetch('https://dummyjson.com/products');
@@ -24,11 +24,7 @@ export default async function Home() {
       
       <section>
         <h2 className="text-2xl font-semibold mb-6 text-gray-800">Featured Products</h2>
-        <div className="product-grid">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        <ProductList products={products} />
       </section>
     </div>
   );

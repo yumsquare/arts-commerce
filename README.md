@@ -37,6 +37,14 @@ This project uses:
 - **Server Components** for initial data fetching
 - **Client Components** for interactive elements
 
+#### Trade-offs and Considerations
+
+- **Fixed Heights vs. Dynamic Content**: Used fixed heights for layout stability, which may occasionally truncate content
+- **Server Components** for initial product fetching to improve SEO and performance
+- **Client Components** for interactive elements like cart functionality
+- **Image Display Optimization**: We optimized product display for images with transparent backgrounds, as most of the product images in the dataset have transparent backgrounds. This design decision means that some images without transparent backgrounds might not look as good within the product cards. We've used `object-contain` to ensure all images fit within their containers without being cropped, but this can result in extra white space for images with non-transparent backgrounds.
+- **Balancing CLS and Design Flexibility**: Made design decisions that prioritize stability while maintaining good aesthetics
+
 ### Core Web Vitals Optimization
 
 The application has been extensively optimized for Core Web Vitals:
@@ -63,13 +71,11 @@ The application has been extensively optimized for Core Web Vitals:
 - **Static Rendering**: Where possible for faster page loads
 - **Dynamic Imports**: For code splitting and reduced initial bundle size
 - **Persistent Cart**: Using Zustand's persist middleware with localStorage
-
-### Trade-offs and Considerations
-
-- **Fixed Heights vs. Dynamic Content**: Used fixed heights for layout stability, which may occasionally truncate content
-- **Server Components** for initial product fetching to improve SEO and performance
-- **Client Components** for interactive elements like cart functionality
-- **Balancing CLS and Design Flexibility**: Made design decisions that prioritize stability while maintaining good aesthetics
+- **Skeleton Loaders**: Used across the application for both home page and product detail pages to:
+  - Maintain consistent layout during loading
+  - Provide visual feedback during data fetching
+  - Prevent layout shifts when content loads
+  - Create a more polished user experience
 
 ## Project Structure
 
