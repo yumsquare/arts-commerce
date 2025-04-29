@@ -99,6 +99,16 @@ export default async function ProductPage({ params }: { params: { id: string } }
               <li>In Stock: {product.stock} units</li>
               <li>Category: {product.category}</li>
               <li>Brand: {product.brand}</li>
+              <li>SKU: {product.sku}</li>
+              {product.tags && product.tags.length > 0 && (
+                <li>Tags: {product.tags.join(', ')}</li>
+              )}
+              <li>Warranty: {product.warrantyInformation}</li>
+              <li>Shipping: {product.shippingInformation}</li>
+              <li>Return Policy: {product.returnPolicy}</li>
+              <li>Status: <span className={product.availabilityStatus === 'Low Stock' ? 'text-orange-500 font-semibold' : ''}>
+                {product.availabilityStatus}
+              </span></li>
             </ul>
           </div>
         </div>
