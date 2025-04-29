@@ -7,6 +7,22 @@ import { useCartStore } from '../store';
 export default function CartPage() {
   const { items, addToCart, removeFromCart, clearCart, totalItems, totalPrice } = useCartStore();
   
+  // Function to completely remove an item from the cart
+  const removeItemCompletely = (productId: number) => {
+    // Get the current state
+    const currentItems = items.filter(item => item.id !== productId);
+    
+    // Clear the cart first
+    clearCart();
+    
+    // Re-add all items except the one we want to remove
+    currentItems.forEach(item => {
+      for (let i = 0; i < item.quantity; i++) {
+        addToCart(item);
+      }
+    });
+  };
+  
   if (items.length === 0) {
     return (
       <div className="max-w-2xl mx-auto text-center py-16">
@@ -29,9 +45,10 @@ export default function CartPage() {
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="py-4 px-6 text-left text-gray-500 font-medium">Product</th>
-                  <th className="py-4 px-6 text-center text-gray-500 font-medium">Quantity</th>
-                  <th className="py-4 px-6 text-right text-gray-500 font-medium">Price</th>
+                  <th className="py-4 px-6 text-left text-gray-500 font-medium w-[50%]">Product</th>
+                  <th className="py-4 px-6 text-center text-gray-500 font-medium w-[20%]">Quantity</th>
+                  <th className="py-4 px-6 text-right text-gray-500 font-medium w-[20%]">Price</th>
+                  <th className="py-4 px-6 text-center w-[10%]"></th> {/* Empty header for delete button column */}
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -61,23 +78,27 @@ export default function CartPage() {
                       </td>
                       <td className="py-4 px-6">
                         <div className="flex items-center justify-center">
-                          <button 
-                            onClick={() => removeFromCart(item.id)}
-                            className="text-gray-400 hover:text-indigo-500 p-1"
-                          >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
-                            </svg>
-                          </button>
-                          <span className="mx-2 w-8 text-center">{item.quantity}</span>
-                          <button 
-                            onClick={() => addToCart(item)}
-                            className="text-gray-400 hover:text-indigo-500 p-1"
-                          >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                            </svg>
-                          </button>
+                          <div className="flex items-center justify-between w-24">
+                            <button 
+                              onClick={() => removeFromCart(item.id)}
+                              className="text-gray-400 hover:text-indigo-500 p-1"
+                              aria-label="Decrease quantity"
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
+                              </svg>
+                            </button>
+                            <span className="w-8 text-center font-medium">{item.quantity}</span>
+                            <button 
+                              onClick={() => addToCart(item)}
+                              className="text-gray-400 hover:text-indigo-500 p-1"
+                              aria-label="Increase quantity"
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                              </svg>
+                            </button>
+                          </div>
                         </div>
                       </td>
                       <td className="py-4 px-6 text-right">
@@ -91,6 +112,18 @@ export default function CartPage() {
                             </p>
                           )}
                         </div>
+                      </td>
+                      <td className="py-4 px-6 text-center">
+                        <button 
+                          onClick={() => removeItemCompletely(item.id)}
+                          className="text-red-500 hover:text-red-700 transition-colors"
+                          aria-label="Remove item from cart"
+                          title="Remove from cart"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                          </svg>
+                        </button>
                       </td>
                     </tr>
                   );

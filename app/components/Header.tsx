@@ -2,9 +2,38 @@
 
 import Link from 'next/link';
 import { useCartStore } from '../store';
+import { useState, useEffect } from 'react';
 
 export default function Header() {
   const totalItems = useCartStore(state => state.totalItems);
+  const [mounted, setMounted] = useState(false);
+  const [itemCount, setItemCount] = useState(0);
+
+  // Set mounted state and initialize item count
+  useEffect(() => {
+    setMounted(true);
+    setItemCount(totalItems());
+  }, [totalItems]);
+
+  // Subscribe to cart changes
+  useEffect(() => {
+    if (!mounted) return;
+    
+    // Update count whenever cart changes
+    const updateCount = () => {
+      setItemCount(totalItems());
+    };
+    
+    // Initial count
+    updateCount();
+    
+    // Set up a subscription to the store
+    const unsubscribe = useCartStore.subscribe(updateCount);
+    
+    return () => {
+      unsubscribe();
+    };
+  }, [mounted, totalItems]);
 
   return (
     <header className="sticky top-0 z-10 bg-white border-b border-gray-100 shadow-sm">
@@ -27,9 +56,9 @@ export default function Header() {
               </svg>
               Cart
             </span>
-            {totalItems() > 0 && (
+            {mounted && itemCount > 0 && (
               <span className="absolute -top-2 -right-2 bg-indigo-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                {totalItems()}
+                {itemCount}
               </span>
             )}
           </Link>
