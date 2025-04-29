@@ -25,11 +25,11 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
   return (
     <button
       onClick={handleAddToCart}
-      className={`w-full py-3 px-6 rounded-lg font-medium transition-colors ${
+      className={`w-full py-3 px-6 rounded-lg font-medium transition-all ${
         isAdded 
-          ? 'bg-green-600 hover:bg-green-700 text-white'
-          : 'bg-indigo-600 hover:bg-indigo-700 text-white'
-      }`}
+          ? 'bg-green-500 hover:bg-green-600 text-white'
+          : 'bg-indigo-500 hover:bg-indigo-600 text-white'
+      } shadow-sm hover:shadow`}
       disabled={isAdded}
     >
       {isAdded ? 'Added to Cart ✓' : 'Add to Cart'}

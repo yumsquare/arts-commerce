@@ -21,8 +21,8 @@ export default async function ProductPage({ params }: { params: { id: string } }
 
   return (
     <div className="max-w-6xl mx-auto">
-      <div className="mb-4">
-        <Link href="/" className="text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
+      <div className="mb-6">
+        <Link href="/" className="text-indigo-500 hover:text-indigo-600 flex items-center gap-1 font-medium">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
             <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
           </svg>
@@ -30,8 +30,8 @@ export default async function ProductPage({ params }: { params: { id: string } }
         </Link>
       </div>
       
-      <div className="flex flex-col md:flex-row gap-8">
-        <div className="md:w-1/2 relative overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
+      <div className="flex flex-col md:flex-row gap-12">
+        <div className="md:w-1/2 relative overflow-hidden rounded-xl bg-gray-50 border border-gray-100">
           <div className="aspect-square relative">
             <Image
               src={product.thumbnail}
@@ -43,9 +43,9 @@ export default async function ProductPage({ params }: { params: { id: string } }
             />
           </div>
           
-          <div className="mt-4 grid grid-cols-4 gap-2">
+          <div className="mt-4 grid grid-cols-4 gap-3 p-3">
             {product.images.slice(0, 4).map((image, index) => (
-              <div key={index} className="aspect-square relative rounded overflow-hidden">
+              <div key={index} className="aspect-square relative rounded-lg overflow-hidden border border-gray-100">
                 <Image
                   src={image}
                   alt={`${product.title} ${index + 1}`}
@@ -59,13 +59,13 @@ export default async function ProductPage({ params }: { params: { id: string } }
         </div>
         
         <div className="md:w-1/2">
-          <h1 className="text-3xl font-bold mb-2">{product.title}</h1>
+          <h1 className="text-3xl font-bold mb-3 text-gray-800">{product.title}</h1>
           <div className="flex items-center gap-2 mb-4">
             <div className="flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} className="w-5 h-5 text-yellow-500">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} className="w-5 h-5 text-yellow-400">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.563.563 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.563.563 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
               </svg>
-              <span className="ml-1 text-gray-700 dark:text-gray-300">{product.rating}</span>
+              <span className="ml-1 text-sm text-gray-500">{product.rating}</span>
             </div>
             <span className="text-gray-500">|</span>
             <span className="text-gray-700 dark:text-gray-300">Brand: {product.brand}</span>

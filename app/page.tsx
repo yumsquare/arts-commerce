@@ -16,9 +16,14 @@ export default async function Home() {
   const products = await getProducts();
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-10">
+      <section className="text-center max-w-4xl mx-auto mb-6">
+        <h1 className="text-4xl font-bold mb-4 text-gray-800">Discover Amazing Products</h1>
+        <p className="text-gray-600">Shop our curated collection of high-quality items at competitive prices.</p>
+      </section>
+      
       <section>
-        <h1 className="text-3xl font-bold mb-6">Featured Products</h1>
+        <h2 className="text-2xl font-semibold mb-6 text-gray-800">Featured Products</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />

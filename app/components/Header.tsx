@@ -7,19 +7,19 @@ export default function Header() {
   const totalItems = useCartStore(state => state.totalItems);
 
   return (
-    <header className="sticky top-0 z-10 bg-white dark:bg-gray-900 shadow-md">
+    <header className="sticky top-0 z-10 bg-white border-b border-gray-100 shadow-sm">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <Link href="/" className="text-2xl font-bold text-indigo-600 hover:text-indigo-700 transition-colors">
+        <Link href="/" className="text-2xl font-bold text-indigo-500 hover:text-indigo-600 transition-colors">
           Arts Commerce
         </Link>
         
         <nav className="flex items-center gap-6">
-          <Link href="/" className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+          <Link href="/" className="text-gray-600 hover:text-indigo-500 transition-colors font-medium">
             Home
           </Link>
           <Link 
             href="/cart" 
-            className="relative text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+            className="relative text-gray-600 hover:text-indigo-500 transition-colors font-medium"
           >
             <span className="flex items-center gap-1">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -28,7 +28,7 @@ export default function Header() {
               Cart
             </span>
             {totalItems() > 0 && (
-              <span className="absolute -top-2 -right-2 bg-indigo-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+              <span className="absolute -top-2 -right-2 bg-indigo-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                 {totalItems()}
               </span>
             )}
