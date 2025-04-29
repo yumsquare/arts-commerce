@@ -9,25 +9,19 @@ export default function Header() {
   const [mounted, setMounted] = useState(false);
   const [itemCount, setItemCount] = useState(0);
 
-  // Set mounted state and initialize item count
   useEffect(() => {
     setMounted(true);
     setItemCount(totalItems());
   }, [totalItems]);
 
-  // Subscribe to cart changes
   useEffect(() => {
     if (!mounted) return;
     
-    // Update count whenever cart changes
     const updateCount = () => {
       setItemCount(totalItems());
     };
     
-    // Initial count
     updateCount();
-    
-    // Set up a subscription to the store
     const unsubscribe = useCartStore.subscribe(updateCount);
     
     return () => {
@@ -36,8 +30,8 @@ export default function Header() {
   }, [mounted, totalItems]);
 
   return (
-    <header className="sticky top-0 z-10 bg-white border-b border-gray-100 shadow-sm">
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+    <header className="sticky top-0 z-10 bg-white border-b border-gray-100 shadow-sm h-16">
+      <div className="container mx-auto h-full px-4 flex justify-between items-center">
         <Link href="/" className="text-2xl font-bold text-indigo-500 hover:text-indigo-600 transition-colors">
           Arts Commerce
         </Link>
@@ -46,23 +40,27 @@ export default function Header() {
           <Link href="/" className="text-gray-600 hover:text-indigo-500 transition-colors font-medium">
             Home
           </Link>
-          <Link 
-            href="/cart" 
-            className="relative text-gray-600 hover:text-indigo-500 transition-colors font-medium"
-          >
-            <span className="flex items-center gap-1">
+          <div className="relative w-20 inline-block">
+            <Link 
+              href="/cart" 
+              className="text-gray-600 hover:text-indigo-500 transition-colors font-medium flex items-center gap-1"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
               </svg>
-              <span style={{ marginRight: '5px' }}>Cart</span>
-            </span>
-            <span className="absolute -top-2 -right-2 w-5 h-5 opacity-0">0</span>
-            {mounted && itemCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-indigo-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                {itemCount}
-              </span>
-            )}
-          </Link>
+              Cart
+            </Link>
+            {/* Always visible badge container to maintain layout */}
+            <div className="absolute -top-2 -right-2 w-5 h-5 flex items-center justify-center">
+              {mounted && itemCount > 0 ? (
+                <span className="bg-indigo-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  {itemCount}
+                </span>
+              ) : (
+                <span className="w-5 h-5 opacity-0">0</span>
+              )}
+            </div>
+          </div>
         </nav>
       </div>
     </header>

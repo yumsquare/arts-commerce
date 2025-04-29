@@ -10,21 +10,27 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <Link 
       href={`/products/${product.id}`}
-      className="group bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 transition-all hover:shadow-md hover:border-gray-200 flex flex-col h-[360px]"
+      className="group bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 transition-all hover:shadow-md hover:border-gray-200 block h-[400px] flex flex-col"
     >
-      <div className="relative h-64 w-full overflow-hidden bg-gray-50">
+      {/* Fixed height container for image */}
+      <div className="relative h-64 w-full bg-gray-100 flex-shrink-0">
+        {/* Background placeholder always visible */}
+        <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
+          <svg className="w-12 h-12 text-gray-200" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm4.5 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm6.969 6H6.5l3.751-3.773 1.874 1.874 3.751-3.752L19.5 14v2.969z"/>
+          </svg>
+        </div>
         <Image
           src={product.thumbnail}
           alt={product.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover group-hover:scale-105 transition-transform duration-300"
-          priority
-          placeholder="blur"
-          blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjJmMmYyIi8+PC9zdmc+"
+          priority={true}
+          style={{ objectFit: "cover" }}
         />
       </div>
-      <div className="p-4 flex-grow flex flex-col">
+      <div className="p-4 flex-grow flex flex-col justify-between">
         <h3 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-1">{product.title}</h3>
         <div className="flex justify-between items-center mt-auto">
           <p className="text-indigo-500 font-bold">
