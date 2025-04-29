@@ -6,6 +6,8 @@ import Header from "./components/Header";
 const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-montserrat",
+  display: 'swap',
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -20,6 +22,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="preload"
+          href="/fonts/montserrat.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className={`${montserrat.variable} font-sans min-h-screen flex flex-col bg-white text-gray-800`}>
         <Header />
         <main className="flex-grow container mx-auto px-4 py-8 bg-white">

@@ -10,7 +10,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <Link 
       href={`/products/${product.id}`}
-      className="group bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 transition-all hover:shadow-md hover:border-gray-200"
+      className="group bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 transition-all hover:shadow-md hover:border-gray-200 flex flex-col h-[360px]"
     >
       <div className="relative h-64 w-full overflow-hidden bg-gray-50">
         <Image
@@ -20,11 +20,13 @@ export default function ProductCard({ product }: ProductCardProps) {
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover group-hover:scale-105 transition-transform duration-300"
           priority
+          placeholder="blur"
+          blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjJmMmYyIi8+PC9zdmc+"
         />
       </div>
-      <div className="p-4">
+      <div className="p-4 flex-grow flex flex-col">
         <h3 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-1">{product.title}</h3>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mt-auto">
           <p className="text-indigo-500 font-bold">
             ${product.price.toFixed(2)}
           </p>
