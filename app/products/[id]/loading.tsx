@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function ProductLoading() {
   return (
     <div className="max-w-6xl mx-auto">
-      {/* Use actual back link instead of a skeleton */}
+      {/* Use Link instead of a */}
       <div className="mb-6">
         <Link href="/" className="text-indigo-500 hover:text-indigo-600 flex items-center gap-1 font-medium">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
