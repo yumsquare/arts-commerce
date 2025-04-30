@@ -65,10 +65,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
           />
         </div>
         
-        {/* Thumbnails area - always render a div with the same height */}
-        <div className="mt-4 p-3" style={{ minHeight: '96px' }}> {/* Fixed minimum height based on thumbnail size */}
+        {/* Thumbnail container - always present for consistent height */}
+        <div className="mt-4 p-3 min-h-[100px]">
           {showThumbnails ? (
-            <div className="grid grid-cols-4 gap-3">
+            <div className="grid grid-cols-4 gap-3 h-full">
               {allImages.slice(0, 4).map((image, index) => (
                 <button
                   key={index}
@@ -91,7 +91,8 @@ export default function ProductDetail({ product }: ProductDetailProps) {
               ))}
             </div>
           ) : (
-            <div className="w-full h-full"></div> // Empty div to maintain space
+            // Empty placeholder to maintain consistent height
+            <div className="h-full" aria-hidden="true"></div>
           )}
         </div>
       </div>
