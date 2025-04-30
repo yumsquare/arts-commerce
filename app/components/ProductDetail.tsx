@@ -3,14 +3,30 @@
 import Image from "next/image";
 import { Product } from "../types";
 import AddToCartButton from "./AddToCartButton";
+import { useState } from "react";
 
 interface ProductDetailProps {
   product: Product;
 }
 
 export default function ProductDetail({ product }: ProductDetailProps) {
+  // Safely handle potential null or undefined product.images
+  const productImages = product?.images || [];
+  
+  // Create array of unique images from product.images (if available)
+  const allImages = [...new Set(productImages)];
+  
+  // Use the first image as default, or thumbnail if no images
+  const defaultImage = allImages.length > 0 ? allImages[0] : (product?.thumbnail || '');
+  
+  // State to track the currently displayed image
+  const [currentImage, setCurrentImage] = useState(defaultImage);
+  
   // Calculate the discounted price
   const discountedPrice = product.price * (1 - product.discountPercentage / 100);
+
+  // Only show thumbnails if we have at least 2 images
+  const showThumbnails = allImages.length >= 2;
 
   return (
     <div className="flex flex-col md:flex-row gap-12">
@@ -37,9 +53,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
           </div>
         </div>
         
+        {/* Main product image */}
         <div className="aspect-square relative">
           <Image
-            src={product.thumbnail}
+            src={currentImage}
             alt={product.title}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -48,18 +65,34 @@ export default function ProductDetail({ product }: ProductDetailProps) {
           />
         </div>
         
-        <div className="mt-4 grid grid-cols-4 gap-3 p-3">
-          {product.images.slice(0, 4).map((image, index) => (
-            <div key={index} className="aspect-square relative rounded-lg overflow-hidden border border-gray-100">
-              <Image
-                src={image}
-                alt={`${product.title} ${index + 1}`}
-                fill
-                sizes="(max-width: 768px) 25vw, 12vw"
-                className="object-cover"
-              />
+        {/* Thumbnails area - always render a div with the same height */}
+        <div className="mt-4 p-3" style={{ minHeight: '96px' }}> {/* Fixed minimum height based on thumbnail size */}
+          {showThumbnails ? (
+            <div className="grid grid-cols-4 gap-3">
+              {allImages.slice(0, 4).map((image, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentImage(image)}
+                  className={`aspect-square relative rounded-lg overflow-hidden border ${
+                    currentImage === image 
+                      ? 'border-indigo-500 ring-2 ring-indigo-500 ring-opacity-50' 
+                      : 'border-gray-100 hover:border-indigo-300'
+                  } transition-all`}
+                  aria-label={`View image ${index + 1}`}
+                >
+                  <Image
+                    src={image}
+                    alt={`${product.title} ${index + 1}`}
+                    fill
+                    sizes="(max-width: 768px) 25vw, 12vw"
+                    className="object-cover"
+                  />
+                </button>
+              ))}
             </div>
-          ))}
+          ) : (
+            <div className="w-full h-full"></div> // Empty div to maintain space
+          )}
         </div>
       </div>
       
