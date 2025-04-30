@@ -39,21 +39,21 @@ export default function CartPage() {
     <div className="max-w-4xl mx-auto px-4">
       <h1 className="text-3xl font-bold mb-8 text-gray-800">Your Shopping Cart</h1>
       
-      {/* Card-based layout for all screen sizes */}
-      <div className="space-y-4 mb-8">
+      {/* Card-based layout matching home page product style */}
+      <div className="space-y-6 mb-8">
         {items.map((item) => {
           const discountedPrice = item.price * (1 - item.discountPercentage / 100);
           
           return (
-            <div key={item.id} className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
-              <div className="flex gap-4">
-                <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 rounded-lg overflow-hidden border border-gray-100">
+            <div key={item.id} className="bg-gray-50 rounded-xl overflow-hidden shadow-sm transition-all hover:shadow-md">
+              <div className="flex p-4 gap-4">
+                <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 rounded-lg overflow-hidden bg-transparent">
                   <Image
                     src={item.thumbnail}
                     alt={item.title}
                     fill
                     sizes="(max-width: 640px) 96px, 112px"
-                    className="object-cover"
+                    className="object-contain"
                   />
                 </div>
                 
@@ -76,7 +76,7 @@ export default function CartPage() {
                   <p className="text-gray-500 text-sm mb-3">{item.brand}</p>
                   
                   <div className="flex items-center justify-between flex-wrap gap-y-3">
-                    <div className="flex items-center border border-gray-200 rounded-lg">
+                    <div className="flex items-center bg-white rounded-lg shadow-sm">
                       <button 
                         onClick={() => removeFromCart(item.id)}
                         className="text-gray-400 hover:text-indigo-500 p-1 w-8 h-8 flex items-center justify-center"
@@ -134,7 +134,7 @@ export default function CartPage() {
         </button>
       </div>
       
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+      <div className="bg-gray-50 rounded-xl shadow-sm p-6">
         <h2 className="text-xl font-bold mb-4 text-gray-800">Order Summary</h2>
         <div className="space-y-3">
           <div className="flex justify-between">
@@ -145,7 +145,7 @@ export default function CartPage() {
             <span className="text-gray-600">Shipping</span>
             <span className="font-medium">Free</span>
           </div>
-          <div className="border-t border-gray-100 pt-3 mt-3">
+          <div className="border-t border-gray-200 pt-3 mt-3">
             <div className="flex justify-between">
               <span className="font-bold text-gray-800">Total</span>
               <span className="font-bold text-indigo-500">${totalPrice().toFixed(2)}</span>
