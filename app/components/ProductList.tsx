@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Product } from "../types";
 import ProductCard from "./ProductCard";
@@ -15,4 +15,4 @@ export default function ProductList({ products }: ProductListProps) {
       ))}
     </div>
   );
-} 
+}

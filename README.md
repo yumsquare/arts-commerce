@@ -31,6 +31,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ### Architecture and Design Decisions
 
 This project uses:
+
 - **Next.js 15+** with App Router for routing and server components
 - **Zustand with persistence** for cart state management
 - **Tailwind CSS** for responsive styling
@@ -54,8 +55,8 @@ The application has been extensively optimized for Core Web Vitals:
   - Image placeholders and explicit dimensions
   - Reserved space for dynamic elements like the cart badge
   - Consistent grid layouts with defined constraints
-  
 - **Largest Contentful Paint (LCP)**: Optimized through:
+
   - Priority loading for above-the-fold images
   - Efficient font loading with `font-display: swap`
   - Preloading critical assets

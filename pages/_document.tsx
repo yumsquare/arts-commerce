@@ -1,4 +1,4 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from "next/document";
 
 class MyDocument extends Document {
   render() {
@@ -6,7 +6,9 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           {/* Inline critical CSS to prevent layout shift */}
-          <style dangerouslySetInnerHTML={{ __html: `
+          <style
+            dangerouslySetInnerHTML={{
+              __html: `
             body {
               margin: 0;
               padding: 0;
@@ -32,7 +34,8 @@ class MyDocument extends Document {
               position: relative;
               background-color: #f3f4f6;
             }
-          `}}
+          `,
+            }}
           />
         </Head>
         <body>
@@ -44,4 +47,4 @@ class MyDocument extends Document {
   }
 }
 
-export default MyDocument; 
+export default MyDocument;

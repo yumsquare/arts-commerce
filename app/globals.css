@@ -6,7 +6,7 @@
   --accent: #4f46e5;
   --accent-light: #818cf8;
   --accent-dark: #3730a3;
-  --font-montserrat: 'Montserrat', sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
 }
 
 @theme inline {

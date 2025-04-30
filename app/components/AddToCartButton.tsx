@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useCartStore } from '../store';
-import { Product } from '../types';
+import { useState } from "react";
+import { useCartStore } from "../store";
+import { Product } from "../types";
 
 interface AddToCartButtonProps {
   product: Product;
@@ -10,12 +10,12 @@ interface AddToCartButtonProps {
 
 export default function AddToCartButton({ product }: AddToCartButtonProps) {
   const [isAdded, setIsAdded] = useState(false);
-  const addToCart = useCartStore(state => state.addToCart);
+  const addToCart = useCartStore((state) => state.addToCart);
 
   const handleAddToCart = () => {
     addToCart(product);
     setIsAdded(true);
-    
+
     // Reset the button after 2 seconds
     setTimeout(() => {
       setIsAdded(false);
@@ -26,13 +26,13 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
     <button
       onClick={handleAddToCart}
       className={`w-full py-3 px-6 rounded-lg font-medium transition-colors ${
-        isAdded 
-          ? 'bg-green-500 hover:bg-green-600 text-white'
-          : 'bg-indigo-500 hover:bg-indigo-600 text-white'
+        isAdded
+          ? "bg-green-500 hover:bg-green-600 text-white"
+          : "bg-indigo-500 hover:bg-indigo-600 text-white"
       }`}
       disabled={isAdded}
     >
-      {isAdded ? 'Added to Cart ✓' : 'Add to Cart'}
+      {isAdded ? "Added to Cart ✓" : "Add to Cart"}
     </button>
   );
-} 
+}
