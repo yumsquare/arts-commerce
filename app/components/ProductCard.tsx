@@ -36,7 +36,11 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
         
         {/* Product image fills the entire card */}
-        <Link href={`/products/${product.id}`} className="block w-full h-full">
+        <Link 
+          href={`/products/${product.id}`} 
+          className="block w-full h-full"
+          scroll={true}
+        >
           <div className="relative w-full h-full group">
             <Image
               src={product.thumbnail}
@@ -52,7 +56,11 @@ export default function ProductCard({ product }: ProductCardProps) {
       
       {/* Product details below the box - left aligned */}
       <div className="text-left">
-        <Link href={`/products/${product.id}`} className="block">
+        <Link 
+          href={`/products/${product.id}`} 
+          className="block"
+          scroll={true}
+        >
           <h2 className="font-medium text-gray-800 mb-2 hover:text-indigo-500 transition-colors">{product.title}</h2>
           <div className="flex items-center">
             <span className="font-semibold text-indigo-600">${product.price.toFixed(2)}</span>

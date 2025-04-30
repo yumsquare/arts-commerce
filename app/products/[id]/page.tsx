@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Product } from "../../types";
-import ProductDetailWrapper from "../../components/ProductDetailWrapper";
+import ProductDetail from "../../components/ProductDetail";
 
 async function getProduct(id: string): Promise<Product> {
   const res = await fetch(`https://dummyjson.com/products/${id}`);
@@ -32,8 +32,8 @@ export default async function ProductPage({ params }: PageProps) {
         </Link>
       </div>
       
-      {/* Use the wrapper component instead */}
-      <ProductDetailWrapper product={product} />
+      {/* Use the ProductDetail component directly */}
+      <ProductDetail product={product} />
     </div>
   );
 } 
