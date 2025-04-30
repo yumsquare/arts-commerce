@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Product } from "../../types";
-import ProductDetail from "../../components/ProductDetail";
+import ProductDetailWrapper from "../../components/ProductDetailWrapper";
 
 async function getProduct(id: string): Promise<Product> {
   const res = await fetch(`https://dummyjson.com/products/${id}`);
@@ -12,8 +12,14 @@ async function getProduct(id: string): Promise<Product> {
   return res.json();
 }
 
-export default async function ProductPage({ params }: { params: { id: string } }) {
-  const product = await getProduct(params.id);
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
+
+export default async function ProductPage({ params }: PageProps) {
+  // Await the entire params object
+  const { id } = await params;
+  const product = await getProduct(id);
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -26,8 +32,8 @@ export default async function ProductPage({ params }: { params: { id: string } }
         </Link>
       </div>
       
-      {/* Pass the product to the client component */}
-      <ProductDetail product={product} />
+      {/* Use the wrapper component instead */}
+      <ProductDetailWrapper product={product} />
     </div>
   );
 } 
