@@ -30,7 +30,7 @@ export default function Header() {
   }, [mounted, totalItems]);
 
   return (
-    <header className="sticky top-0 z-10 bg-white border-b border-gray-100 shadow-sm h-16">
+    <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm h-16">
       <div className="container mx-auto h-full px-4 flex justify-between items-center">
         <Link href="/" className="text-2xl font-bold text-indigo-500 hover:text-indigo-600 transition-colors">
           Arts Commerce
@@ -47,7 +47,7 @@ export default function Header() {
             </svg>
             
             {mounted && itemCount > 0 && (
-              <span className="absolute -top-0 -right-0 bg-indigo-500 text-white text-xs font-bold rounded-full min-w-5 h-5 flex items-center justify-center px-1">
+              <span className="absolute -top-1 -right-1 bg-indigo-500 text-white text-xs font-bold rounded-full min-w-5 h-5 flex items-center justify-center px-1">
                 {itemCount}
               </span>
             )}
