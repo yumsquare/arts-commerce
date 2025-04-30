@@ -37,9 +37,13 @@ This project uses:
 - **Server Components** for initial data fetching
 - **Client Components** for interactive elements
 
-#### Trade-offs and Considerations
+#### Thought Process & Trade-offs
 
-- **Image Display Optimization**: We optimized product display for images with transparent backgrounds, as most of the product images in the dataset have transparent backgrounds. This design decision means that some images without transparent backgrounds might not look as good within the product cards. We've used `object-contain` to ensure all images fit within their containers without being cropped, but this can result in extra white space for images with non-transparent backgrounds.
+- **Image Display Optimization**: I optimized product display for images with transparent backgrounds, as most of the product images in the dataset have transparent backgrounds. This design decision means that some images without transparent backgrounds might not look as good within the product cards. I've used `object-contain` to ensure all images fit within their containers without being cropped, but this can result in extra white space for images with non-transparent backgrounds.
+
+- **Modern Clean Minimal Design**: I attempted a modern, clean, and minimal design approach throughout the application. This includes ample white space, subtle shadows, rounded corners, and a focused color scheme. This minimalist approach enhances readability and user focus, though it may limit visual richness for users who prefer more decorative interfaces.
+
+- **Multiple Image Handling**: I implemented a thumbnail gallery system in the product detail page that intelligently displays when a product has more than one image. Users can click on thumbnails to change the main product image, providing a better shopping experience. The system is designed to gracefully handle products with varying numbers of images, from single-image products to those with multiple views.
 
 ### Core Web Vitals Optimization
 
