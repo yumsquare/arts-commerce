@@ -4,12 +4,14 @@ import Image from "next/image";
 import { Product } from "../types";
 import AddToCartButton from "./AddToCartButton";
 import { useState } from "react";
-import StarIcon from "./icons/StarIcon";
-import BoxIcon from "./icons/BoxIcon";
-import TagIcon from "./icons/TagIcon";
-import BadgeIcon from "./icons/BadgeIcon";
-import ShieldIcon from "./icons/ShieldIcon";
-import TruckIcon from "./icons/TruckIcon";
+import {
+  StarIcon,
+  BoxIcon,
+  TagIcon,
+  BadgeIcon,
+  ShieldIcon,
+  TruckIcon,
+} from "./icons";
 
 interface ProductDetailProps {
   product: Product;

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Product } from "../../types";
 import ProductDetail from "../../components/ProductDetail";
-import ArrowLeftIcon from "../../components/icons/ArrowLeftIcon";
+import { ArrowLeftIcon } from "../../components/icons";
 
 async function getProduct(id: string): Promise<Product> {
   const res = await fetch(`https://dummyjson.com/products/${id}`);

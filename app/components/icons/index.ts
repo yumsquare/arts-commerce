@@ -1,0 +1,11 @@
+export { default as StarIcon } from "./StarIcon";
+export { default as BoxIcon } from "./BoxIcon";
+export { default as TagIcon } from "./TagIcon";
+export { default as BadgeIcon } from "./BadgeIcon";
+export { default as ShieldIcon } from "./ShieldIcon";
+export { default as TruckIcon } from "./TruckIcon";
+export { default as TrashIcon } from "./TrashIcon";
+export { default as MinusIcon } from "./MinusIcon";
+export { default as PlusIcon } from "./PlusIcon";
+export { default as ArrowLeftIcon } from "./ArrowLeftIcon";
+export { default as ShoppingCartIcon } from "./ShoppingCartIcon";
