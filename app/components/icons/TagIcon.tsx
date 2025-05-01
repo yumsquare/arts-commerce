@@ -8,14 +8,7 @@ export default function TagIcon({
   className = "w-5 h-5 text-indigo-500 mr-2 flex-shrink-0",
 }: TagIconProps) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      className={className}
-    >
+    <IconBase className={className}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -26,6 +19,6 @@ export default function TagIcon({
         strokeLinejoin="round"
         d="M6 6h.008v.008H6V6z"
       />
-    </svg>
+    </IconBase>
   );
 }
