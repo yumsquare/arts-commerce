@@ -6,7 +6,7 @@ import ProductList from "./ProductList";
 import Sidebar from "./Sidebar";
 import SearchBar from "./SearchBar";
 import SortControls from "./SortControls";
-import { useProductStore } from "../store/useProductStore";
+import { useProductStore, useFilteredProducts } from "../store/useProductStore";
 
 interface ProductBrowserProps {
   initialProducts: Product[];
@@ -17,13 +17,15 @@ export default function ProductBrowser({
 }: ProductBrowserProps) {
   // Get values and actions from the store
   const {
-    filteredProducts,
     selectedCategory,
     sortOption,
     setProducts,
     setSelectedCategory,
     setSortOption,
   } = useProductStore();
+
+  // Get filtered products using the memoized selector
+  const filteredProducts = useFilteredProducts();
 
   // Initialize store with products on component mount
   useEffect(() => {

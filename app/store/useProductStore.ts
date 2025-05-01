@@ -6,7 +6,6 @@ import { Product } from "../types";
 interface ProductState {
   // Data
   allProducts: Product[];
-  filteredProducts: Product[];
 
   // Filters
   selectedCategory: string | null;
@@ -18,81 +17,59 @@ interface ProductState {
   setSelectedCategory: (category: string | null) => void;
   setSearchQuery: (query: string) => void;
   setSortOption: (option: string) => void;
-  applyFilters: () => void;
 }
+
+// Create selector functions outside the store for better memoization
+const getFilteredProducts = (state: ProductState) => {
+  const { allProducts, selectedCategory, searchQuery, sortOption } = state;
+
+  // Start with all products
+  let result = [...allProducts];
+
+  // Apply category filter
+  if (selectedCategory) {
+    result = result.filter((product) => product.category === selectedCategory);
+  }
+
+  // Apply search filter
+  if (searchQuery) {
+    const query = searchQuery.toLowerCase();
+    result = result.filter(
+      (product) =>
+        product.title.toLowerCase().includes(query) ||
+        product.category.toLowerCase().includes(query) ||
+        product.description.toLowerCase().includes(query)
+    );
+  }
+
+  // Apply sorting
+  switch (sortOption) {
+    case "name-asc":
+      return [...result].sort((a, b) => a.title.localeCompare(b.title));
+    case "name-desc":
+      return [...result].sort((a, b) => b.title.localeCompare(a.title));
+    case "rating-desc":
+      return [...result].sort((a, b) => b.rating - a.rating);
+    case "rating-asc":
+      return [...result].sort((a, b) => a.rating - b.rating);
+    default:
+      return [...result].sort((a, b) => a.id - b.id);
+  }
+};
 
 export const useProductStore = create<ProductState>((set, get) => ({
   // Initial state
   allProducts: [],
-  filteredProducts: [],
   selectedCategory: null,
   searchQuery: "",
   sortOption: "default",
 
   // Actions
-  setProducts: (products) => {
-    set({ allProducts: products });
-    get().applyFilters();
-  },
-
-  setSelectedCategory: (category) => {
-    set({ selectedCategory: category });
-    get().applyFilters();
-  },
-
-  setSearchQuery: (query) => {
-    set({ searchQuery: query });
-    get().applyFilters();
-  },
-
-  setSortOption: (option) => {
-    set({ sortOption: option });
-    get().applyFilters();
-  },
-
-  applyFilters: () => {
-    const { allProducts, selectedCategory, searchQuery, sortOption } = get();
-
-    // Start with all products
-    let result = [...allProducts];
-
-    // Apply category filter
-    if (selectedCategory) {
-      result = result.filter(
-        (product) => product.category === selectedCategory
-      );
-    }
-
-    // Apply search filter
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      result = result.filter(
-        (product) =>
-          product.title.toLowerCase().includes(query) ||
-          product.category.toLowerCase().includes(query) ||
-          product.description.toLowerCase().includes(query)
-      );
-    }
-
-    // Apply sorting
-    switch (sortOption) {
-      case "name-asc":
-        result.sort((a, b) => a.title.localeCompare(b.title));
-        break;
-      case "name-desc":
-        result.sort((a, b) => b.title.localeCompare(a.title));
-        break;
-      case "rating-desc":
-        result.sort((a, b) => b.rating - a.rating);
-        break;
-      case "rating-asc":
-        result.sort((a, b) => a.rating - b.rating);
-        break;
-      default:
-        // Default sort (by id)
-        result.sort((a, b) => a.id - b.id);
-    }
-
-    set({ filteredProducts: result });
-  },
+  setProducts: (products) => set({ allProducts: products }),
+  setSelectedCategory: (category) => set({ selectedCategory: category }),
+  setSearchQuery: (query) => set({ searchQuery: query }),
+  setSortOption: (option) => set({ sortOption: option }),
 }));
+
+// Create a selector hook for filtered products
+export const useFilteredProducts = () => useProductStore(getFilteredProducts);
