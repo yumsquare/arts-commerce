@@ -1,17 +1,7 @@
 import Link from "next/link";
-import { Product } from "../../types";
+import { getProduct } from "../../data";
 import ProductDetail from "../../components/ProductDetail";
 import { ArrowLeftIcon } from "../../components/icons";
-
-async function getProduct(id: string): Promise<Product> {
-  const res = await fetch(`https://dummyjson.com/products/${id}`);
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch product");
-  }
-
-  return res.json();
-}
 
 interface PageProps {
   params: Promise<{ id: string }>;

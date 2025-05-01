@@ -1,16 +1,5 @@
-import { Product } from "./types";
+import { getProducts } from "./data";
 import ProductList from "./components/ProductList";
-
-async function getProducts(): Promise<Product[]> {
-  const res = await fetch("https://dummyjson.com/products");
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch products");
-  }
-
-  const data = await res.json();
-  return data.products;
-}
 
 export default async function Home() {
   const products = await getProducts();
