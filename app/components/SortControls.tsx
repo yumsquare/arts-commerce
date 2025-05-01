@@ -1,5 +1,3 @@
-"use client";
-
 interface SortControlsProps {
   sortOption: string;
   onSortChange: (option: string) => void;

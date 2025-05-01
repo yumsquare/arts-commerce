@@ -6,7 +6,6 @@ import ProductList from "./ProductList";
 import Sidebar from "./Sidebar";
 import SearchBar from "./SearchBar";
 import SortControls from "./SortControls";
-import Loading from "../loading";
 
 interface ProductBrowserProps {
   initialProducts: Product[];
@@ -15,26 +14,16 @@ interface ProductBrowserProps {
 export default function ProductBrowser({
   initialProducts = [],
 }: ProductBrowserProps) {
-  // Ensure initialProducts is never undefined with a default empty array
-  const safeInitialProducts = Array.isArray(initialProducts)
-    ? initialProducts
-    : [];
-
-  const [products] = useState<Product[]>(safeInitialProducts);
+  const allProducts = initialProducts;
   const [filteredProducts, setFilteredProducts] =
-    useState<Product[]>(safeInitialProducts);
+    useState<Product[]>(initialProducts);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState("default");
 
-  // If we don't have products yet, show loading
-  if (safeInitialProducts.length === 0) {
-    return <Loading />;
-  }
-
   useEffect(() => {
     // Apply filters whenever dependencies change
-    let result = [...products];
+    let result = [...allProducts];
 
     // Apply category filter
     if (selectedCategory) {
@@ -74,20 +63,20 @@ export default function ProductBrowser({
     }
 
     setFilteredProducts(result);
-  }, [products, selectedCategory, searchQuery, sortOption]);
+  }, [allProducts, selectedCategory, searchQuery, sortOption]);
 
   return (
     <>
       {/* Search bar */}
       <div className="mb-8">
-        <SearchBar products={products} onSearch={setSearchQuery} />
+        <SearchBar products={allProducts} onSearch={setSearchQuery} />
       </div>
 
       <div className="flex flex-col md:flex-row gap-8">
         {/* Sidebar */}
         <div className="md:w-1/4">
           <Sidebar
-            products={products}
+            products={allProducts}
             selectedCategory={selectedCategory}
             onCategorySelect={setSelectedCategory}
           />
