@@ -6,20 +6,31 @@ import ProductList from "./ProductList";
 import Sidebar from "./Sidebar";
 import SearchBar from "./SearchBar";
 import SortControls from "./SortControls";
+import Loading from "../loading";
 
 interface ProductBrowserProps {
   initialProducts: Product[];
 }
 
 export default function ProductBrowser({
-  initialProducts,
+  initialProducts = [],
 }: ProductBrowserProps) {
-  const [products] = useState<Product[]>(initialProducts);
+  // Ensure initialProducts is never undefined with a default empty array
+  const safeInitialProducts = Array.isArray(initialProducts)
+    ? initialProducts
+    : [];
+
+  const [products] = useState<Product[]>(safeInitialProducts);
   const [filteredProducts, setFilteredProducts] =
-    useState<Product[]>(initialProducts);
+    useState<Product[]>(safeInitialProducts);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState("default");
+
+  // If we don't have products yet, show loading
+  if (safeInitialProducts.length === 0) {
+    return <Loading />;
+  }
 
   useEffect(() => {
     // Apply filters whenever dependencies change

@@ -1,9 +1,10 @@
 import { getProducts } from "./data";
 import ProductBrowser from "./components/ProductBrowser";
-import ProductListSkeleton from "./components/ProductListSkeleton";
 import { Suspense } from "react";
+import Loading from "./loading";
 
 // Add for page caching
+export const dynamic = "force-dynamic";
 export const revalidate = 3600; // Revalidate every hour
 
 export default async function Home() {
@@ -22,7 +23,8 @@ export default async function Home() {
           </p>
         </div>
 
-        <Suspense fallback={<ProductListSkeleton />}>
+        <Suspense fallback={<Loading />}>
+          {/* Only render ProductBrowser when products are available */}
           <ProductBrowser initialProducts={products} />
         </Suspense>
       </div>
