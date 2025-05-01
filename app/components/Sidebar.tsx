@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
 import { useProductStore } from "../store/useProductStore";
 
 interface SidebarProps {
@@ -14,14 +13,15 @@ export default function Sidebar({
 }: SidebarProps) {
   const { allProducts, setSearchQuery } = useProductStore();
 
-  // Use useMemo for categories calculation
-  const categories = useMemo(() => {
-    return allProducts.reduce<{ [key: string]: number }>((acc, product) => {
+  // Get unique categories and their counts
+  const categories = allProducts.reduce<{ [key: string]: number }>(
+    (acc, product) => {
       const category = product.category;
       acc[category] = (acc[category] || 0) + 1;
       return acc;
-    }, {});
-  }, [allProducts]);
+    },
+    {}
+  );
 
   // Handle category selection and reset search
   const handleCategorySelect = (category: string | null) => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect, useMemo } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useProductStore } from "../store/useProductStore";
 import { Product } from "../types";
 import Link from "next/link";
@@ -8,29 +8,28 @@ import Link from "next/link";
 export default function SearchBar() {
   const { allProducts, searchQuery, setSearchQuery, setSelectedCategory } =
     useProductStore();
+  const [suggestions, setSuggestions] = useState<Product[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const suggestionBoxRef = useRef<HTMLDivElement>(null);
 
-  // Use useMemo instead of useState + useEffect for suggestions
-  const suggestions = useMemo(() => {
+  useEffect(() => {
+    // Filter products based on search query
     if (searchQuery.trim().length >= 2) {
-      return allProducts
+      const filtered = allProducts
         .filter(
           (product) =>
             product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             product.category.toLowerCase().includes(searchQuery.toLowerCase())
         )
         .slice(0, 5); // Limit to 5 suggestions
-    }
-    return [];
-  }, [searchQuery, allProducts]);
 
-  // Update showSuggestions based on suggestions
-  useEffect(() => {
-    setShowSuggestions(
-      suggestions.length > 0 && searchQuery.trim().length >= 2
-    );
-  }, [suggestions, searchQuery]);
+      setSuggestions(filtered);
+      setShowSuggestions(true);
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  }, [searchQuery, allProducts]);
 
   // Handle click outside to close suggestions
   useEffect(() => {
