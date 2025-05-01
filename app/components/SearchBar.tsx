@@ -1,25 +1,25 @@
+"use client";
+
 import { useRef, useState, useEffect } from "react";
+import { useProductStore } from "../store/useProductStore";
 import { Product } from "../types";
+import Link from "next/link";
 
-interface SearchBarProps {
-  products: Product[];
-  onSearch: (query: string) => void;
-}
-
-export default function SearchBar({ products, onSearch }: SearchBarProps) {
-  const [query, setQuery] = useState("");
+export default function SearchBar() {
+  const { allProducts, searchQuery, setSearchQuery, setSelectedCategory } =
+    useProductStore();
   const [suggestions, setSuggestions] = useState<Product[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const suggestionBoxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Filter products based on search query
-    if (query.trim().length >= 2) {
-      const filtered = products
+    if (searchQuery.trim().length >= 2) {
+      const filtered = allProducts
         .filter(
           (product) =>
-            product.title.toLowerCase().includes(query.toLowerCase()) ||
-            product.category.toLowerCase().includes(query.toLowerCase())
+            product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            product.category.toLowerCase().includes(searchQuery.toLowerCase())
         )
         .slice(0, 5); // Limit to 5 suggestions
 
@@ -29,7 +29,7 @@ export default function SearchBar({ products, onSearch }: SearchBarProps) {
       setSuggestions([]);
       setShowSuggestions(false);
     }
-  }, [query, products]);
+  }, [searchQuery, allProducts]);
 
   // Handle click outside to close suggestions
   useEffect(() => {
@@ -48,9 +48,10 @@ export default function SearchBar({ products, onSearch }: SearchBarProps) {
     };
   }, []);
 
-  const handleSearch = (searchQuery: string) => {
-    onSearch(searchQuery);
+  // Handle search submission
+  const handleSearchSubmit = () => {
     setShowSuggestions(false);
+    setSelectedCategory(null); // Reset category to "All Products"
   };
 
   return (
@@ -58,18 +59,18 @@ export default function SearchBar({ products, onSearch }: SearchBarProps) {
       <div className="relative">
         <input
           type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              handleSearch(query);
+              handleSearchSubmit();
             }
           }}
           placeholder="Search products..."
           className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400 transition-all duration-200 ease-in-out text-sm"
         />
         <button
-          onClick={() => handleSearch(query)}
+          onClick={handleSearchSubmit}
           className="absolute right-2 top-1/2 -translate-y-1/2 bg-indigo-500 hover:bg-indigo-600 text-white p-1 rounded-md"
         >
           <svg
@@ -92,11 +93,12 @@ export default function SearchBar({ products, onSearch }: SearchBarProps) {
       {showSuggestions && suggestions.length > 0 && (
         <div className="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-lg border border-gray-200 max-h-60 overflow-auto">
           {suggestions.map((product) => (
-            <div
+            <Link
               key={product.id}
+              href={`/products/${product.id}`}
               onClick={() => {
-                setQuery(product.title);
-                handleSearch(product.title);
+                setSearchQuery(product.title);
+                setShowSuggestions(false);
               }}
               className="px-4 py-2 hover:bg-gray-50 cursor-pointer text-sm flex items-center"
             >
@@ -113,7 +115,7 @@ export default function SearchBar({ products, onSearch }: SearchBarProps) {
                   {product.category}
                 </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}
