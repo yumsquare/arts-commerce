@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Product } from "../../types";
 import ProductDetail from "../../components/ProductDetail";
+import ArrowLeftIcon from "../../components/icons/ArrowLeftIcon";
 
 async function getProduct(id: string): Promise<Product> {
   const res = await fetch(`https://dummyjson.com/products/${id}`);
@@ -28,20 +29,7 @@ export default async function ProductPage({ params }: PageProps) {
           href="/"
           className="text-indigo-500 hover:text-indigo-600 flex items-center gap-1 font-medium"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-4 h-4"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
-            />
-          </svg>
+          <ArrowLeftIcon className="w-4 h-4" />
           Back to Products
         </Link>
       </div>
