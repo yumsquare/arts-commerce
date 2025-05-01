@@ -91,7 +91,7 @@ export default function SearchBar() {
       </div>
 
       {showSuggestions && suggestions.length > 0 && (
-        <div className="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-lg border border-gray-200 max-h-60 overflow-auto">
+        <div className="absolute z-30 mt-1 w-full bg-white shadow-lg rounded-lg border border-gray-200 max-h-60 overflow-auto">
           {suggestions.map((product) => (
             <Link
               key={product.id}

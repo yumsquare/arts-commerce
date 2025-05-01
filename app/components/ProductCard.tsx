@@ -29,9 +29,9 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
 
           {/* Rating in top right */}
-          <div className="flex items-center bg-white px-2 py-1 rounded-full shadow-sm">
-            <StarIcon className="w-4 h-4 text-yellow-400" />
-            <span className="text-sm text-gray-600 ml-1">{product.rating}</span>
+          <div className="absolute top-2 right-2 z-20 flex items-center bg-white rounded-full px-2 py-1 text-sm shadow-sm">
+            <StarIcon className="w-4 h-4 text-yellow-400 mr-1" />
+            <span>{product.rating}</span>
           </div>
         </div>
 
