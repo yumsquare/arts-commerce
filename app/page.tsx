@@ -1,6 +1,9 @@
 import { getProducts } from "./data";
 import ProductList from "./components/ProductList";
 
+// Revalidate the data every hour (3600 seconds)
+export const revalidate = 3600;
+
 export default async function Home() {
   const products = await getProducts();
 
