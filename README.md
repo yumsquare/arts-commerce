@@ -40,45 +40,19 @@ This project uses:
 
 #### Thought Process & Trade-offs
 
-- **Image Display Optimization**: I optimized product display for images with transparent backgrounds, as most of the product images in the dataset have transparent backgrounds. This design decision means that some images without transparent backgrounds might not look as good within the product cards. I've used `object-contain` to ensure all images fit within their containers without being cropped, but this can result in extra white space for images with non-transparent backgrounds.
+- **Home Page Caching Strategy**: Implemented time-based revalidation (1-hour cache) for the home page to balance performance and content freshness. This improves load times and reduces API calls while ensuring product data is reasonably current. The trade-off accepts slightly stale data for significantly better performance and reduced backend load.
+
+- **Image Display Optimization**: I optimized product display for images with transparent backgrounds, as most of the product images in the dataset have transparent backgrounds. This design decision means that some images without transparent backgrounds might not look as good within the product cards.
+
+- **Multiple Image Handling**: I implemented a thumbnail gallery system that lets users switch between product images, which enhances the shopping experience by providing a more comprehensive view of products, but this feature requires client-side rendering, potentially impacting initial load performance, so future optimization efforts should focus on code-splitting this component to reduce the JavaScript bundle size and improve overall page load times.
+
+- **Cumulative Layout Shift (CLS)**: Perfect score of 0 achieved through fixed-height containers, image placeholders with explicit dimensions, reserved space for dynamic elements, and consistent grid layouts with defined constraints.
 
 - **Modern Clean Minimal Design**: I attempted a modern, clean, and minimal design approach throughout the application. This includes ample white space, subtle shadows, rounded corners, and a focused color scheme. This minimalist approach enhances readability and user focus, though it may limit visual richness for users who prefer more decorative interfaces.
 
-- **Multiple Image Handling**: I implemented a thumbnail gallery system in the product detail page that intelligently displays when a product has more than one image. Users can click on thumbnails to change the main product image, providing a better shopping experience. The system is designed to gracefully handle products with varying numbers of images, from single-image products to those with multiple views.
+- **Skeleton Loaders**: I implemented skeleton loading states throughout the application to enhance the user experience during data fetching. This improves perceived performance and maintains layout stability, though it adds some complexity to component implementation.
 
-### Core Web Vitals Optimization
-
-The application has been extensively optimized for Core Web Vitals:
-
-- **Cumulative Layout Shift (CLS)**: Score of 0 (perfect) achieved through:
-  - Fixed-height containers for dynamic content
-  - Image placeholders and explicit dimensions
-  - Reserved space for dynamic elements like the cart badge
-  - Consistent grid layouts with defined constraints
-- **Largest Contentful Paint (LCP)**: Optimized through:
-
-  - Priority loading for above-the-fold images
-  - Efficient font loading with `font-display: swap`
-  - Preloading critical assets
-
-- **First Input Delay (FID)**: Enhanced through:
-  - Efficient state management with Zustand
-  - Minimized client-side JavaScript
-  - Hydration optimization
-
-### Performance Features
-
-- **Image Optimization**: Next.js Image component with proper sizing and loading strategies
-- **Static Rendering**: Where possible for faster page loads
-- **Dynamic Imports**: For code splitting and reduced initial bundle size
-- **Persistent Cart**: Using Zustand's persist middleware with localStorage
-- **Skeleton Loaders**: Used across the application for both home page and product detail pages to:
-  - Maintain consistent layout during loading
-  - Provide visual feedback during data fetching
-  - Prevent layout shifts when content loads
-  - Create a more polished user experience
-
-## Project Structure
+- **Persistent Cart**: I implemented persistent cart storage using Zustand persist middleware to maintain cart state across page refreshes and browser sessions. The trade-off is slightly increased local storage usage, but the benefit of persistence outweighs the minimal storage cost.
 
 ### Known Limitations
 
@@ -86,20 +60,3 @@ The application has been extensively optimized for Core Web Vitals:
 - Limited product filtering or search capabilities
 - Mock e-commerce - no actual payment processing
 - No pagination of products
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
